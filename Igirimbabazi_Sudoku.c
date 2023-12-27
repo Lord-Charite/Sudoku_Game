@@ -18,14 +18,10 @@ int main(void) {
   int grid[81] ={0};
   int mistakes = 0;
   int stop;
-  //Calling the function to give user a choice of inputs
   choiceOfPosition();
-  //reding/inistaializing game
   readgame(grid);
-  //display current board after the game is iniialized
   displayBoard(grid);
-  //get inputs from user and display current board if input is valid
-  getInputs(grid, &mistakes);
+  getInputs(grid, &mistakes); //get inputs from user and display current board if input is valid
   
 }
 
@@ -36,8 +32,8 @@ void readgame (int grid[81]) {
   int i;
   int done = 0;
   int message = 0;
-  //opening the file
   originalGridFile = fopen ("Sudoku.txt", "r");
+  
   if (originalGridFile == NULL) printf ("Invalid file!");
   
   while (!done) {
@@ -47,7 +43,7 @@ void readgame (int grid[81]) {
     else i++;
     
     }
-  //closing the file 
+
   fclose (originalGridFile);
   }
 
@@ -205,26 +201,23 @@ void getInputs (int grid[81], int *mistakes){
   int usernum, userlocation;
   printf ("\n\nValid positions are 0-80\n");
   printf("\nWhat position do you want to play at: \n");
-  green();//color
-  //getting input from user
+  green();
   scanf("%d", &userlocation);
   reset();//reset to default color
     
   printf ("Valid numbers are 1-9\n");
   printf("What number do you want to add at that position: \n");
-  red();//color
-  //getting inputs fro user
+  red();
   scanf("%d", &usernum);
   reset();//reset to default color
+  
 //check if input are in the range of possible inputs   
 if ((usernum > 0 && usernum <= 9) && (userlocation >= 0 && userlocation < 81))  {
-   //checking if the move is valid
-  if ((correctMove(grid, usernum, userlocation)) && legalMove(grid, userlocation) ){
+  if ((correctMove(grid, usernum, userlocation)) && legalMove(grid, userlocation) ){ //valid move
     grid [userlocation] = usernum;
-    green();//color
+    green();
     displayBoard(grid);
     reset();
-    //writeGame(grid, mistakes);
     
     puzzleSolved(grid);
     //checking if puzzle is solved then tell the user that they've won
@@ -239,7 +232,7 @@ if ((usernum > 0 && usernum <= 9) && (userlocation >= 0 && userlocation < 81))  
       }
   }
     
-  //run only if the mover is invalid and counting mistakes
+  //run only if the move is invalid and counting mistakes
   else{
     *mistakes += 1;
     if ( *mistakes < 4){
@@ -317,7 +310,6 @@ void writeGame(int grid[81], int *mistakes){
   //openig file for appending an element at the end
   updatedgridfile = fopen("SudokuSave.txt", "a");
   fprintf(updatedgridfile, "%d ", *mistakes);
-  //closing file
   fclose(updatedgridfile);
 }
 
@@ -326,18 +318,17 @@ void writeGame(int grid[81], int *mistakes){
 int exitGame(int grid [81], int *mistakes) {
   int stop;
   printf("\n\nWould you like to save the game: \n(1) enter any number to continue and to not save the game \n(2) enter -1 to exit and save: \n\n");
-  //geting the user inputs
   scanf ("%d", &stop);
   if (stop == -1){
     //save game if user choose to exist and return 1/true
     writeGame(grid, mistakes);
     blue();//color
-    printf("Your game file has been saved to SudokuSave.txt file\n");
-    reset();//reset to default color
+    printf("Your game file has been saved to SudokuSavedFile.txt file\n");
+    reset();
     return 1;
     }
-blue();//color
-printf("OKAY! Your game file is not saved.\n");
+blue();
+printf("File not saved.\n");
 reset();//reset to default color
 return 0;
 }
