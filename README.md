@@ -1,4 +1,5 @@
 Overview
+
 This Sudoku game is a console-based application written in C. It provides a simple and interactive way to play the classic Sudoku puzzle. The game generates random Sudoku boards and allows users to play, validate, and solve the puzzles.
 
 Features
