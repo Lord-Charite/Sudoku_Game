@@ -16,7 +16,7 @@ void reset();
 
 int main(void) {
   int grid[81] ={0};
-  int mistakes = 0;
+  int mistakes = 0; 
   int stop;
   choiceOfPosition();
   readgame(grid);
